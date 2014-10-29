@@ -44,10 +44,9 @@ public:
 		bool isBreak = false;
 		for(int i = 0; i < intervals.size()-2; i++){
 			for(int j = i+1; j < intervals.size()-1; j++){
-				if(checkMergable){
+				if(checkMergable(intervals[i], intervals[j])){
 					intervals[j] = mergeTwoInterval(intervals[i], intervals[j]);
-					cout << intervals[j].start;
-					cout << intervals[j].end;
+					intervals.erase(intervals.begin()+i);
 					isBreak = true;
 					break;
 				}
@@ -62,16 +61,15 @@ public:
 };
 
 int main(){
-	cout << "Hello World";
 	struct Interval iv1;
 	iv1.start = 1;
 	iv1.end = 3;
 	struct Interval iv2;
-	iv2.start = 2;
-	iv2.end = 6;
+	iv2.start = 8;
+	iv2.end = 10;
 	struct Interval iv3;
-	iv3.start = 8;
-	iv3.end = 10;
+	iv3.start = 2;
+	iv3.end = 6;
 	struct Interval iv4;
 	iv4.start = 15;
 	iv4.end = 18;
@@ -81,6 +79,10 @@ int main(){
 	mVector.push_back(iv3);
 	mVector.push_back(iv4);
 	Solution tmp;
-	tmp.merge(mVector);
+	vector<Interval> a = tmp.merge(mVector);
+	cout << a.size() << endl;
+	for(int i = 0; i < a.size(); i++){
+		cout << a[i].start << " " << a[i].end << endl;
+	}
 	return 0;
 }
